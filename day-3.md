@@ -300,8 +300,8 @@ button.addEventListener(
 
 Otherwise, the event listener would call handleClick with a different this.
     
-3. 
-4. Partial application
+ 
+3. Partial application
 
 function multiply(a, b) {
   return a * b;
