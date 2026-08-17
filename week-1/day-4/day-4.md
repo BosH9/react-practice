@@ -116,52 +116,49 @@ scheduler.run();
 
 3) retry() implementation.
 
-let attempts = 0;
-let newDelay = 1000;
+// retries = number of additional attempts after the initial attempt
+function delayMS(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-async function fetchUser() {
+function createFetchUser() {
+  let attempts = 0;
+
+  return async function fetchUser() {
     attempts++;
-
     if (attempts <= 3) {
-        throw new Error("Network Error");
+      throw new Error("Network Error");
     }
-
     return {
-        id: 1,
-        name: "John"
+      id: 1,
+      name: "John",
     };
-
-    // throw new Error("Final Error");
+  };
 }
 
-async function retry(fnc, { retries, delay }) {
-
-    try{
-        return await fnc();
-        
+async function retry(operation, { retries, delay }) {
+  let currentDelay = delay;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      return await operation();
+    } catch (e) {
+      if (i > 0) {
+        console.log(`Attempt ${i + 1}, retry #${i}`);
+        await delayMS(currentDelay);
+        if (i === retries) throw e;
+        currentDelay *= 2;
+      } else i === 0 && console.log(`Initial Attempt ${i + 1}`);
     }
-    catch(e) {
-        console.log('retries', retries);
-        if(retries === 0) {
-            throw e;
-        }
-        retries--;
-        newDelay *= 2;
-        console.log('delay', newDelay/1000, 'seconds');
-
-        console.log(e.message);
-        return new Promise(resolve => setTimeout(() => resolve(retry(fnc, {retries, delay})), newDelay));
-        
-    }
-   
+  }
 }
-
+const fetchUser = createFetchUser();
 const result = await retry(fetchUser, {
-    retries: 3,
-    delay: 1000
+  retries: 3,
+  delay: 1000,
 });
 
-console.log(result);
+console.log("result", result);
+
 
 4) Answers to the React scenario.
 
