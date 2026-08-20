@@ -31,7 +31,7 @@ export default function UserDirectory() {
 
   const filteredUsers = users.filter(
     (user) =>
-      (activeOnly ? user.isActive : user) &&
+      (!activeOnly || user.isActive) &&
       user.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
   );
 

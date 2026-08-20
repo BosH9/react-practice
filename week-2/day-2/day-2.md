@@ -97,6 +97,10 @@ After one click count will be 3.
 
 Explanation: here prev is the current state value. as setCount(prev => prev + 1) is called three times, the current state value is updated three times. so the final state value is 3.
 
+The first passes a value(setCount(count + 1)).
+
+The second passes an updater function(setCount(prev => prev + 1)).
+
 Q5) What's wrong with:
 
 user.name = "Bob";
@@ -129,7 +133,7 @@ without mutating the array?
 
 Ans)
 
-setUsers(users.filter(user => user.id !== 5));
+setUsers(prevUsers => prevUsers.filter(user => user.id !== 5));
 
 Q8) Explain controlled input.
 
