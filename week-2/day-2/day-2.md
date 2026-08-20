@@ -6,7 +6,7 @@ Ans) Refer CounterStep.Jsx
 4. Exercise 4 — Active Filter
 5. Exercise 5 — Toggle Status
 
-Ans) for the above exercises(3,4,5) refer to UserDirectory.Jsx, UserCard.Jsx, UserList.Jsx, Search.Jsx files.
+Ans) for the above exercises(3,4,5) refer to UserDirectory.Jsx, UserCard.Jsx, UserList.Jsx, Search.Jsx files in the same directory(week-2/day-2 folder).
 
 Q1) What is useState?
 Explain what this means:
